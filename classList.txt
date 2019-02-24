@@ -1,0 +1,4 @@
+location: Waterloo
+address: Living Space, 1 Coral Street, London SE1 7BE
+location: Kingston
+address: The Grey Horse, 46 Richmond Rd, Kingston upon Thames, KT2 5EE
