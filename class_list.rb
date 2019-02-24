@@ -49,19 +49,51 @@ def process_main(selection)
   end
 end
 
-=begin
+def process_days(selection)
+  case selection
+  when "1", "2", "3", "4", "5", "6", "7"
+    load_classes_for_a_day(selection)
+  when "8"
+    interactive_menu_main
+  when "9"
+    exit
+  else
+    puts "I don't know what you mean, try again"
+  end
+end
+
+def load_classes_for_a_day(selection)
+  num_to_days = {
+    "1" => :monday,
+    "2" => :tuesday,
+    "3" => :wednesday,
+    "4" => :thursday,
+    "5" => :friday,
+    "6" => :saturday,
+    "7" => :sunday
+  }
+
+  list = []
+  day = num_to_days[selection]
+
+  list << @classes.select {|item| item.has_value?(day)}
+  puts list
+end
+
 def new_class
 
 #type
-
+  puts "Please enter the type of the class"
+  type = gets.chomp
   while true do
-    puts "Please enter the type of the class"
-    type = gets.chomp
-    type == !"\n" ? type = type.downcase.to_sym
-
-    puts "TYPE: #{type}, correct? (return)"
-    input = gets.chomp
-    break if input == "\n"
+    if type != "\n"
+      puts "TYPE: #{type}, correct? (Y)"
+      input = gets.chomp.upcase
+        if input == "Y"
+          break
+        end
+    end
+    type = type.downcase.to_sym
   end
 
 
@@ -123,7 +155,7 @@ def new_class
     break if input == "Y"
   end
 
-  file = File.open("classes.csv", "w", "a")
+  file = File.open("classes.csv", "a")
   csv_line = [type.to_s.capitalize, location.to_s.capitalize, day.to_s.capitalize, address, times_and_levels].join(",")
   file.puts csv_line
   puts "Here is your new class info:\nTYPE -#{type.to_s.capitalize}\nLOCATION -#{location.to_s.capitalize}\nDAY -#{day.to_s.capitalize}\nADDRESS -#{address}\nTIMES AND LEVELS -#{times_and_levels}"
@@ -134,34 +166,14 @@ def load_classes(filename = "classes.csv")
   file = File.open(filename, "r")
   file.readlines.each do |line|
   type, location, day, address, times_and_levels = line.chomp.split(',')
-    @classes << {type: type.downcase.to_sym, location: location.downcase.to_sym, day: day.downcase.to_sym, address: address, times_and_levels: times_and_levels}
+    @classes << {type: type.downcase.to_sym,
+      location: location.downcase.to_sym,
+      day: day.downcase.to_sym,
+      address: address,
+      times_and_levels: times_and_levels}
   end
   file.close
-end
-
-
-
-def load_students(filename = "students.csv")
-  file = File.open(filename, "r")
-  file.readlines.each do |line|
-  name, cohort = line.chomp.split(',')
-    @students << {name: name, cohort: cohort.to_sym}
-  end
-  file.close
-end
-
-def try_load_students
-  filename = ARGV.first # first argument from the command line
-  return if filename.nil? # get out of the method if it isn't given
-  if File.exists?(filename) # if it exists
-    load_students(filename)
-    puts "Loaded #{@students.count} from #{filename}"
-  else # if it doesn't exist
-    puts "Sorry, #{filename} doesn't exist."
-    exit
-  end
 end
 
 load_classes
 interactive_menu_main
-=end
