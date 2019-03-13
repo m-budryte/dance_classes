@@ -1,0 +1,3 @@
+As a admin
+So I can record the info on dance classes
+I want to be able to create a new dance class

@@ -1,2 +1,0 @@
-class DanceClassesController < ApplicationController
-end
