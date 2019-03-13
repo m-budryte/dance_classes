@@ -1,0 +1,27 @@
+As an admin
+So I can record the info on dance classes
+I want to be able to create a new dance class
+
+As an admin
+So I know the location
+I want to be able to add location to the dance class
+
+As an admin
+So I know what type of class it is
+I want to attach a tag (urban_blues, swing, aerials)
+
+As an admin
+So I know which day to come
+I want to have a day tag attached to the dance_class
+
+As an admin
+So I what time is the class
+I want to have a time info stored on the dance_class
+
+As an admin
+So I know who teaches it
+I want dance class to store teachers info
+
+As an admin
+So I know the levels available
+I want to have info on levels stored
